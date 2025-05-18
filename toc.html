@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bling n' Bites | Table of Contents</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn3.emoji.gg/emojis/8924-cinnamorollcandy.gif" type="image/gif">
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            cursor: url('https://i.ibb.co/FSNkF4Z/red-lollipop.gif') 5 5, auto;
+            min-height: 100vh;
+        }
+
+        /* TOC Page Styles */
+        .toc-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .toc-container h1 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3.5rem;
+            text-shadow: 3px 3px 0 #ff1493;
+        }
+
+        .toc-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+
+        .toc-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            height: 150px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+            cursor: pointer;
+        }
+
+        .toc-box:nth-child(1) { animation-delay: 0.1s; }
+        .toc-box:nth-child(2) { animation-delay: 0.2s; }
+        .toc-box:nth-child(3) { animation-delay: 0.3s; }
+        .toc-box:nth-child(4) { animation-delay: 0.4s; }
+        .toc-box:nth-child(5) { animation-delay: 0.5s; }
+        .toc-box:nth-child(6) { animation-delay: 0.6s; }
+
+        .box-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .box-content h3 {
+            color: #ff1493;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .box-content p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .box-candy {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* 3D Cuboid Effect */
+        .toc-box::before, .toc-box::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 20, 147, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .toc-box::before {
+            /* Left side */
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            transform-origin: left;
+            transform: rotateY(90deg) translateX(-10px);
+        }
+
+        .toc-box::after {
+            /* Top side */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            transform-origin: top;
+            transform: rotateX(-90deg) translateY(-10px);
+        }
+
+        .toc-box:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.4);
+        }
+
+        .toc-box:hover::before,
+        .toc-box:hover::after {
+            opacity: 1;
+        }
+
+        /* Mouse position tracking effect */
+        .toc-box {
+            will-change: transform;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 100;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Table of Contents -->
+    <div class="toc-container">
+        <h1>Bling n' Bites</h1>
+        <h2>Sweet Adventures Await!</h2>
+        
+        <div class="toc-grid">
+            <div class="toc-box" data-preview="aboutUs.html" data-title="About Us">
+                <div class="box-content">
+                    <h3>About Us</h3>
+                    <p>Meet the candy-loving team</p>
+                </div>
+                <div class="box-candy">🍬</div>
+            </div>
+            
+            <div class="toc-box" data-preview="social.html" data-title="Connect With Us">
+                <div class="box-content">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media</p>
+                </div>
+                <div class="box-candy">📱</div>
+            </div>
+            
+            <div class="toc-box" data-preview="order.html" data-title="Place Order">
+                <div class="box-content">
+                    <h3>Place Order</h3>
+                    <p>Order your sweet treats</p>
+                </div>
+                <div class="box-candy">🛒</div>
+            </div>
+            
+            <!-- Add more boxes as needed -->
+        </div>
+    </div>
+
+    <div class="watermark">Bling n' Bites © 2025 | Keyshaun Sookdar</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize TOC box interactions
+            const tocBoxes = document.querySelectorAll('.toc-box');
+            
+            // Mouse position tracking for 3D effect
+            tocBoxes.forEach(box => {
+                box.addEventListener('mousemove', (e) => {
+                    const x = e.clientX - box.getBoundingClientRect().left;
+                    const y = e.clientY - box.getBoundingClientRect().top;
+                    
+                    const centerX = box.offsetWidth / 2;
+                    const centerY = box.offsetHeight / 2;
+                    
+                    const angleX = (y - centerY) / 20;
+                    const angleY = (centerX - x) / 20;
+                    
+                    box.style.transform = `translateY(-20px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+                });
+                
+                box.addEventListener('mouseleave', () => {
+                    box.style.transform = 'translateY(-20px) rotateX(0) rotateY(0)';
+                });
+                
+                box.addEventListener('click', function() {
+                    const previewUrl = this.getAttribute('data-preview');
+                    if (previewUrl) {
+                        window.location.href = previewUrl;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

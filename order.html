@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bling n' Bites | Order Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn3.emoji.gg/emojis/8924-cinnamorollcandy.gif" type="image/gif">
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            cursor: url('https://i.ibb.co/FSNkF4Z/red-lollipop.gif') 5 5, auto;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3rem;
+            color: #ff1493;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+
+        .order-form {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #ff1493;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #ff1493;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.2);
+        }
+
+        .submit-btn {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #ff0066;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .success-message {
+            text-align: center;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #f44336;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .order-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bling n' Bites Order Form</h1>
+        
+        <div class="order-form">
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="formClass">Form Class</label>
+                    <select id="formClass" required>
+                        <option value="" disabled selected>Select your form class</option>
+                        <option value="1">Form 1</option>
+                        <option value="2">Form 2</option>
+                        <option value="3">Form 3</option>
+                        <option value="4">Form 4</option>
+                        <option value="5">Form 5</option>
+                        <option value="6">Form 6 (Lower & Upper)</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="item">Item</label>
+                    <input type="text" id="item" placeholder="What would you like to order?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" min="1" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Special Instructions (Optional)</label>
+                    <textarea id="notes" rows="3" placeholder="Any special requests or notes..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">Place Order</button>
+                
+                <div class="success-message" id="successMessage">
+                    Order submitted successfully! 🎉
+                </div>
+                
+                <div class="error-message" id="errorMessage">
+                    There was an error submitting your order. Please try again.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="watermark">Bling n' Bites © 2025 | Keyshaun Sookdar</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderForm = document.getElementById('orderForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Webhook mapping (encoded for basic obfuscation)
+            const webhookMap = {
+                '1': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ2OTg3NDY2NzM4ODk5OS9wRXU3UWl0THhPemhYMEdvNlloTU0ydmFFX1N6emhScTBYdklGbmlrMnI3UkQ4WThfZVNnM3JDcnFILTBXVk5lU0VaQ3M=',
+                '2': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDA3MzE1NDQzNzIxMS9QTDFYQURxQWpmM0JOVHRYeml5Z3d0WG9mOFlQd094c0MyTWVta1FER0locDEzcHB4OWR6WGVPWDBQQXBCSWFnNjlGdA==',
+                '3': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDM0MjgyMzAyMjY3Mi9DM2VrQWFkZEpOclNqR0g2LTVIWHRRR0NrbktxN0dlRF9SeE1LbXZkMmp0NzYtTTRYQkFXUE1xdG15SlRYSzU5TlNsTg==',
+                '4': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDQ1NDY2NDI2NTgzOC90ZUdlWG1RTnR5SzFGUHhjbTBqaU1Ic1FVcjE2Y1BtUUN4aVNZQU95bzdibFdIZGRGYjNiVlo3a193ellNWmlCSlNPSw==',
+                '5': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDUzMDA2NTI3MjkwMi83UWV1QVdiMXRBUzRJblZKS0pZX0VQMy1EYjAyODlCNHJkd1A0XzdKdU9oR3laNHgyVmVZNEs3MFdhd2FwRGhyeXpEdQ==',
+                '6': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDY1NDc5OTU0NDM2MS9OdnBjMHpBMGlNR0p1bi1Hd2hwWV80UmpTbDAtMGNzaXFvYThnYTZfYWxTTUhUUENsa1NyRGNoa0ZlZkp2UG9fOTlOeQ==',
+                'teacher': 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM3MzQ3MDczMDMwMTQ3NjkyNC9lVHdRUFhTazJmZ0FRak0weTZQSTMzRWxsc2Z0SHlsSGtBRDZGcXRqVy1mVjFPLUEweFpkMTM5a2FYMDUzMmw5YjVDNA=='
+            };
+            
+            // Rate limiting variables
+            let lastSubmissionTime = 0;
+            const submissionCooldown = 5000; // 5 seconds
+            
+            orderForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const currentTime = Date.now();
+                if (currentTime - lastSubmissionTime < submissionCooldown) {
+                    showError("Please wait a few seconds before submitting another order.");
+                    return;
+                }
+                
+                const formClass = document.getElementById('formClass').value;
+                const item = document.getElementById('item').value;
+                const quantity = document.getElementById('quantity').value;
+                const name = document.getElementById('name').value;
+                const notes = document.getElementById('notes').value;
+                
+                // Basic validation
+                if (!formClass || !item || !quantity || !name) {
+                    showError("Please fill in all required fields.");
+                    return;
+                }
+                
+                // Disable button during submission
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Processing...";
+                
+                try {
+                    // Get the appropriate webhook URL
+                    const encodedUrl = webhookMap[formClass];
+                    if (!encodedUrl) {
+                        throw new Error("Invalid form class selected");
+                    }
+                    
+                    // Decode the webhook URL
+                    const webhookUrl = atob(encodedUrl);
+                    
+                    // Prepare the Discord message
+                    const message = {
+                        content: `**New Order Received** 🎉\n\n**Form Class:** ${formClass}\n**Name:** ${name}\n**Item:** ${item}\n**Quantity:** ${quantity}\n${notes ? `**Notes:** ${notes}` : ''}`,
+                        username: "Bling n' Bites Orders",
+                        avatar_url: "https://cdn3.emoji.gg/emojis/8924-cinnamorollcandy.gif"
+                    };
+                    
+                    // Send to Discord webhook
+                    const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(message),
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to send order');
+                    }
+                    
+                    // Success
+                    showSuccess();
+                    orderForm.reset();
+                    lastSubmissionTime = currentTime;
+                } catch (error) {
+                    console.error('Error submitting order:', error);
+                    showError("There was an error submitting your order. Please try again.");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Place Order";
+                }
+            });
+            
+            function showSuccess() {
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                
+                // Hide error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
